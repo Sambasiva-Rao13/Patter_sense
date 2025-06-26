@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Fabric Image</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f0f0f0;
+      padding: 40px;
+      text-align: center;
+    }
+
+    input[type="file"] {
+      margin: 20px;
+    }
+
+    input[type="submit"] {
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    img.preview {
+      max-width: 300px;
+      margin-top: 20px;
+      border-radius: 10px;
+      border: 2px solid #ccc;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <h2>Upload a Fabric Image for Pattern Classification</h2>
+
+  <form action="/predictionpage" method="POST" enctype="multipart/form-data">
+    <input type="file" name="file" accept="image/*" onchange="previewImage(event)" required><br>
+    <input type="submit" value="Predict Pattern">
+  </form>
+
+  <img id="imagePreview" class="preview">
+
+  <script>
+    function previewImage(event) {
+      const reader = new FileReader();
+      reader.onload = function () {
+        const output = document.getElementById('imagePreview');
+        output.src = reader.result;
+        output.style.display = 'block';
+      };
+      reader.readAsDataURL(event.target.files[0]);
+    }
+  </script>
+</body>
+</html>
